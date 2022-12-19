@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MChavezSistemaDeBecasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreAlumno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Genero" Type="bit" />
+          <Property Name="Edad" Type="int" />
+        </EntityType>
+        <EntityType Name="AlumnoBeca">
+          <Key>
+            <PropertyRef Name="IdAlumnoBeca" />
+          </Key>
+          <Property Name="IdAlumnoBeca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAlumno" Type="int" />
+          <Property Name="IdBeca" Type="int" />
+        </EntityType>
+        <EntityType Name="Beca">
+          <Key>
+            <PropertyRef Name="IdBeca" />
+          </Key>
+          <Property Name="IdBeca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreBeca" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Alumno">
+          <End Role="Alumno" Type="Self.Alumno" Multiplicity="0..1" />
+          <End Role="AlumnoBeca" Type="Self.AlumnoBeca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="IdAlumno" />
+            </Principal>
+            <Dependent Role="AlumnoBeca">
+              <PropertyRef Name="IdAlumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beca">
+          <End Role="Beca" Type="Self.Beca" Multiplicity="0..1" />
+          <End Role="AlumnoBeca" Type="Self.AlumnoBeca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beca">
+              <PropertyRef Name="IdBeca" />
+            </Principal>
+            <Dependent Role="AlumnoBeca">
+              <PropertyRef Name="IdBeca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AlumnoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreAlumno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="Genero" Type="bit" Mode="In" />
+          <Parameter Name="Edad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AlumnoBecaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="AlumnoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAlumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AlumnoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="AlumnoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAlumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AlumnoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NombreAlumno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="Genero" Type="bit" Mode="In" />
+          <Parameter Name="Edad" Type="int" Mode="In" />
+          <Parameter Name="IdAlumno" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BecaAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAlumno" Type="int" Mode="In" />
+          <Parameter Name="IdBeca" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BecaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="MChavezSistemaDeBecasModelStoreContainer">
+          <EntitySet Name="Alumno" EntityType="Self.Alumno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlumnoBeca" EntityType="Self.AlumnoBeca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Beca" EntityType="Self.Beca" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Alumno" Association="Self.FK_Alumno">
+            <End Role="Alumno" EntitySet="Alumno" />
+            <End Role="AlumnoBeca" EntitySet="AlumnoBeca" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beca" Association="Self.FK_Beca">
+            <End Role="Beca" EntitySet="Beca" />
+            <End Role="AlumnoBeca" EntitySet="AlumnoBeca" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MChavezSistemaDeBecasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alumno">
+          <Key>
+            <PropertyRef Name="IdAlumno" />
+          </Key>
+          <Property Name="IdAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreAlumno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Genero" Type="Boolean" />
+          <Property Name="Edad" Type="Int32" />
+          <NavigationProperty Name="AlumnoBecas" Relationship="MChavezSistemaDeBecasModel.FK_Alumno" FromRole="Alumno" ToRole="AlumnoBeca" />
+        </EntityType>
+        <EntityType Name="Beca">
+          <Key>
+            <PropertyRef Name="IdBeca" />
+          </Key>
+          <Property Name="IdBeca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreBeca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AlumnoBecas" Relationship="MChavezSistemaDeBecasModel.FK_Beca" FromRole="Beca" ToRole="AlumnoBeca" />
+        </EntityType>
+        <EntityContainer Name="MChavezSistemaDeBecasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alumnoes" EntityType="Self.Alumno" />
+          <EntitySet Name="Becas" EntityType="Self.Beca" />
+          <FunctionImport Name="AlumnoAdd">
+            <Parameter Name="NombreAlumno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Genero" Mode="In" Type="Boolean" />
+            <Parameter Name="Edad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoDelete">
+          <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoGetAll" ReturnType="Collection(MChavezSistemaDeBecasModel.AlumnoGetAll_Result)" />
+          <FunctionImport Name="AlumnoGetById" ReturnType="Collection(MChavezSistemaDeBecasModel.AlumnoGetById_Result)">
+          <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AlumnoUpdate">
+            <Parameter Name="NombreAlumno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Genero" Mode="In" Type="Boolean" />
+            <Parameter Name="Edad" Mode="In" Type="Int32" />
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="AlumnoBecas" EntityType="MChavezSistemaDeBecasModel.AlumnoBeca" />
+          <AssociationSet Name="FK_Alumno" Association="MChavezSistemaDeBecasModel.FK_Alumno">
+            <End Role="Alumno" EntitySet="Alumnoes" />
+            <End Role="AlumnoBeca" EntitySet="AlumnoBecas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Beca" Association="MChavezSistemaDeBecasModel.FK_Beca">
+            <End Role="Beca" EntitySet="Becas" />
+            <End Role="AlumnoBeca" EntitySet="AlumnoBecas" />
+          </AssociationSet>
+          <FunctionImport Name="AlumnoBecaGetAll" ReturnType="Collection(MChavezSistemaDeBecasModel.AlumnoBecaGetAll_Result)" />
+          <FunctionImport Name="BecaAdd">
+            <Parameter Name="IdAlumno" Mode="In" Type="Int32" />
+            <Parameter Name="IdBeca" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BecaGetAll" ReturnType="Collection(MChavezSistemaDeBecasModel.BecaGetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="AlumnoGetAll_Result">
+          <Property Type="Int32" Name="IdAlumno" Nullable="false" />
+          <Property Type="String" Name="NombreAlumno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Genero" Nullable="true" />
+          <Property Type="Int32" Name="Edad" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="AlumnoGetById_Result">
+          <Property Type="Int32" Name="IdAlumno" Nullable="false" />
+          <Property Type="String" Name="NombreAlumno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Genero" Nullable="true" />
+          <Property Type="Int32" Name="Edad" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="AlumnoBeca">
+          <Key>
+            <PropertyRef Name="IdAlumnoBeca" />
+          </Key>
+          <Property Name="IdAlumnoBeca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAlumno" Type="Int32" />
+          <Property Name="IdBeca" Type="Int32" />
+          <NavigationProperty Name="Alumno" Relationship="MChavezSistemaDeBecasModel.FK_Alumno" FromRole="AlumnoBeca" ToRole="Alumno" />
+          <NavigationProperty Name="Beca" Relationship="MChavezSistemaDeBecasModel.FK_Beca" FromRole="AlumnoBeca" ToRole="Beca" />
+        </EntityType>
+        <Association Name="FK_Alumno">
+          <End Type="MChavezSistemaDeBecasModel.Alumno" Role="Alumno" Multiplicity="0..1" />
+          <End Type="MChavezSistemaDeBecasModel.AlumnoBeca" Role="AlumnoBeca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumno">
+              <PropertyRef Name="IdAlumno" />
+            </Principal>
+            <Dependent Role="AlumnoBeca">
+              <PropertyRef Name="IdAlumno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Beca">
+          <End Type="MChavezSistemaDeBecasModel.Beca" Role="Beca" Multiplicity="0..1" />
+          <End Type="MChavezSistemaDeBecasModel.AlumnoBeca" Role="AlumnoBeca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beca">
+              <PropertyRef Name="IdBeca" />
+            </Principal>
+            <Dependent Role="AlumnoBeca">
+              <PropertyRef Name="IdBeca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="AlumnoBecaGetAll_Result">
+          <Property Type="Int32" Name="IdAlumnoBeca" Nullable="false" />
+          <Property Type="Int32" Name="IdAlumno" Nullable="true" />
+          <Property Type="String" Name="NombreAlumno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdBeca" Nullable="true" />
+          <Property Type="String" Name="NombreBeca" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="BecaGetAll_Result">
+          <Property Type="Int32" Name="IdBeca" Nullable="false" />
+          <Property Type="String" Name="NombreBeca" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MChavezSistemaDeBecasModelStoreContainer" CdmEntityContainer="MChavezSistemaDeBecasEntities">
+          <EntitySetMapping Name="Alumnoes">
+            <EntityTypeMapping TypeName="MChavezSistemaDeBecasModel.Alumno">
+              <MappingFragment StoreEntitySet="Alumno">
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="NombreAlumno" ColumnName="NombreAlumno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Becas">
+            <EntityTypeMapping TypeName="MChavezSistemaDeBecasModel.Beca">
+              <MappingFragment StoreEntitySet="Beca">
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+                <ScalarProperty Name="NombreBeca" ColumnName="NombreBeca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AlumnoAdd" FunctionName="MChavezSistemaDeBecasModel.Store.AlumnoAdd" />
+          <FunctionImportMapping FunctionImportName="AlumnoDelete" FunctionName="MChavezSistemaDeBecasModel.Store.AlumnoDelete" />
+          <FunctionImportMapping FunctionImportName="AlumnoGetAll" FunctionName="MChavezSistemaDeBecasModel.Store.AlumnoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MChavezSistemaDeBecasModel.AlumnoGetAll_Result">
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="NombreAlumno" ColumnName="NombreAlumno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AlumnoGetById" FunctionName="MChavezSistemaDeBecasModel.Store.AlumnoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MChavezSistemaDeBecasModel.AlumnoGetById_Result">
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="NombreAlumno" ColumnName="NombreAlumno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Genero" ColumnName="Genero" />
+                <ScalarProperty Name="Edad" ColumnName="Edad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AlumnoUpdate" FunctionName="MChavezSistemaDeBecasModel.Store.AlumnoUpdate" />
+          <EntitySetMapping Name="AlumnoBecas">
+            <EntityTypeMapping TypeName="MChavezSistemaDeBecasModel.AlumnoBeca">
+              <MappingFragment StoreEntitySet="AlumnoBeca">
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="IdAlumnoBeca" ColumnName="IdAlumnoBeca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AlumnoBecaGetAll" FunctionName="MChavezSistemaDeBecasModel.Store.AlumnoBecaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MChavezSistemaDeBecasModel.AlumnoBecaGetAll_Result">
+                <ScalarProperty Name="IdAlumnoBeca" ColumnName="IdAlumnoBeca" />
+                <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
+                <ScalarProperty Name="NombreAlumno" ColumnName="NombreAlumno" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+                <ScalarProperty Name="NombreBeca" ColumnName="NombreBeca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BecaAdd" FunctionName="MChavezSistemaDeBecasModel.Store.BecaAdd" />
+          <FunctionImportMapping FunctionImportName="BecaGetAll" FunctionName="MChavezSistemaDeBecasModel.Store.BecaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MChavezSistemaDeBecasModel.BecaGetAll_Result">
+                <ScalarProperty Name="IdBeca" ColumnName="IdBeca" />
+                <ScalarProperty Name="NombreBeca" ColumnName="NombreBeca" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

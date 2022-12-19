@@ -1,0 +1,54 @@
+﻿@model ML.AlumnoBeca
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Usuario</h2>
+    <p>Aqui podra ver los datos relacionados con el usuario asi como editar y eliminar</p>
+
+    <div class=" row">
+        <div style="float:right">
+            @Html.ActionLink("Agregar", "Form", "AlumnoBeca", htmlAttributes: new { @class = "btn btn-success" }) 
+        </div>
+    </div>
+
+    <hr />
+
+    <dir class=" row">
+        <table class=" table table-responsive">
+            <thead>
+                <tr>
+                    <th>Editar</th>
+                    <th class=" hidden">IdAlumnoBeca</th> 
+                    <th>IdAlumno</th> 
+                    <th>Nombre</th>
+                    <th class="hidden">IdBeca</th>
+                    <th>Nombre</th>
+
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ML.AlumnoBeca alumnoBeca in Model.AlumnoBecas)
+                {
+                <tr>
+                    @*Boton de editar*@
+                    <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "AlumnoBeca", new { IdAlumnoBeca = alumnoBeca.IdAlumnoBeca})"></a></td>
+                    <td class="hidden">@alumnoBeca.IdAlumnoBeca</td>
+                    <td>@alumnoBeca.IdAlumno</td>
+                    <td>@alumnoBeca.Alumno.NombreAlumno @alumnoBeca.Alumno.ApellidoPaterno @alumnoBeca.Alumno.ApellidoMaterno</td> @*se concatena para que muestre todo junto*@
+
+                    <td class="hidden">@alumnoBeca.IdBeca</td>
+                    <td>@alumnoBeca.Beca.NombreBeca</td>
+
+                    <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "AlumnoBeca", new { IdAlumnoBeca = alumnoBeca.IdAlumnoBeca })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </dir>
+</div>
+

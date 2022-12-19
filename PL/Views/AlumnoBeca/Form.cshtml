@@ -1,0 +1,84 @@
+﻿@model ML.AlumnoBeca
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h2>Form</h2>
+    <p>Aqui podra actualizar o modificar los registros</p>
+
+    <div class="row">
+        <div class=" col-md-12">
+            @using (Html.BeginForm("Form", "AlumnoBeca", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+
+
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.IdAlumnoBeca, new { @class = "hidden" }) 
+
+                            @Html.TextBoxFor(model => model.IdAlumnoBeca, new { @class = "hidden form-control" }) 
+
+                            @Html.ValidationMessageFor(model => model.IdAlumnoBeca)
+
+                        </div>
+
+                    </div> 
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.IdAlumno)
+
+                            @Html.TextBoxFor(model => model.IdAlumno, new { @class = "form-control"})
+
+                            @Html.ValidationMessageFor(model => model.IdAlumno)
+
+                        </div>
+
+                    </div>
+
+                    @*<div class="form-group">
+
+                        <div class="col-md-3">
+
+                            @Html.LabelFor(model => model.Beca.IdBeca)
+
+
+                            @Html.DropDownListFor(model => model.Beca.IdBeca, new SelectList(Model.Beca.IdBeca, "IdBeca", "NombreBeca"), "Seleccione el tipo de beca", new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(model => model.Beca.IdBeca)
+
+                        </div>
+
+                    </div>*@ 
+                   
+
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+
+                            <input type="submit" value="Guardar" class="btn btn-success" />
+                            @*Se crea el boton de guardar*@
+
+                            @Html.ActionLink("Regresar", "GetAll", "AlumnoBeca", htmlAttributes: new { @class = "btn btn-danger" })
+                            @*Se crea el boton de regresar se regresa al metodo GetAll en el controlador de usuario*@
+                        </div>
+                    </div>     @*Boton*@
+
+                </div>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+
