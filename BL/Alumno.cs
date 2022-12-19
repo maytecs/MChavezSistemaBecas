@@ -37,7 +37,7 @@ namespace BL
             }
             return result;
         }
-
+        //Editar para poder hacer otro commit
 
         public static ML.Result UpdateLQ(ML.Alumno alumno)
         {
